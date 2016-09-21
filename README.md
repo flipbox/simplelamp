@@ -42,22 +42,24 @@ Once the config.yml file is edited, you can run:
         - *domains* (required) - array - Value for the apache virtual host ServerAlias. Currently we don't set the ServerName for the apache virtual host which is fine when we have the aliases that are correct.
         - *force_https* (optional) - boolean value - Added a redirect from http to https when true.
 
-
-```
+####Example config.yml
+```yaml
 sites: 
     web:
         docroot: /path/to/web-entrypoint
         domains: 
             - local.example.com
             - example.dev
+        force_https: true
     api:
         docroot: /path/to/api-entrypoint
         domains: 
-            - local.example.com
-            - example.dev
+            - local-api.example.com
+            - api.example.dev
+        force_https: true
 ```
 
 ##Disclaimer
-Please don't use this in production and read the LICENSE
+This is for development purposes only. Please don't use this in production and read the LICENSE
 
 
