@@ -1,0 +1,22 @@
+# vi:syntax=yaml ft=yaml
+# Project name
+name: default
+# Project paths
+# path on you computer, we like to commit the Vagrantfile and dependencies to the project repo.
+local_path: ../
+# path on the vagrant box
+remote_path: /var/www/html
+# Sites
+sites:
+    # site label, you can have unlimited sets of sites childern
+    example:
+        # this can also have a local path for the http conf
+        docroot: /var/www/html/public
+        domains:
+            - example.dev
+            - local.example.com
+# Couple things not tested, use at your own risk.
+#httpconf:
+# craft_plugins:
+#     local_path:
+#     remote_path:
