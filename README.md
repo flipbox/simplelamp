@@ -33,10 +33,29 @@ Once the config.yml file is edited, you can run:
 ##Config File (config.yml)
 
 ###Properties
-- *name* (required) - Change this to fit the name of the project you are working on.
-- *local_path* (required) - the local path to the project root. The project root will have anything that might be needed to be accessed from the server. This is not the document root for apache.
-- *remote_path* (required) - the remote path to the project on the vagrant box.
-- *sites* (required) - the apache config variables for the infinite amount of virtual hosts you want to run on the vagrant box.
+- *name* (required) - string - Change this to fit the name of the project you are working on.
+- *local_path* (required) - string - the local path to the project root. The project root will have anything that might be needed to be accessed from the server. This is not the document root for apache.
+- *remote_path* (required) - string - the remote path to the project on the vagrant box.
+- *sites* (required) - array - the apache config variables for the infinite amount of virtual hosts you want to run on the vagrant box.
+    - site name - You name this key and can be whatever you want it to be. An example of having multiple sites is when you have an api and a web entry point. The site names could be "web" and "api"
+        - *docroot* (required) - string - Value for the apache virtual host DocumentRoot. This is the remote path, the path that is on the vagrant box.
+        - *domains* (required) - array - Value for the apache virtual host ServerAlias. Currently we don't set the ServerName for the apache virtual host which is fine when we have the aliases that are correct.
+        - *force_https* (optional) - boolean value - Added a redirect from http to https when true.
+
+
+```
+sites: 
+    web:
+        docroot: /path/to/web-entrypoint
+        domains: 
+            - local.example.com
+            - example.dev
+    api:
+        docroot: /path/to/api-entrypoint
+        domains: 
+            - local.example.com
+            - example.dev
+```
 
 ##Disclaimer
 Please don't use this in production and read the LICENSE

@@ -16,7 +16,12 @@ sudo apt-get install -y php7.0-dev libapache2-mod-php7.0 php7.0-curl php7.0-cli 
 
 #install apache
 sudo apt-get install -y apache2 
-sudo a2enmod rewrite 
+sudo a2enmod rewrite
+sudo a2enmod ssl
+
+#create a self signed cert to allow testing for ssl
+sudo mkdir /etc/apache2/ssl/
+sudo openssl req -subj '/CN=flipboxdigital.com/O=Flipbox Digital/C=US' -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -keyout /etc/apache2/ssl/server.key -out /etc/apache2/ssl/server.crt
 
 #TODO - Make php xdebug configurable
 # Xdebug

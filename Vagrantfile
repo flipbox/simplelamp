@@ -153,7 +153,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             s.env = {
                 "REMOTE_PATH"       => httpconfigs['docroot'],
                 "PROJECT_HOSTNAMES" => httpconfigs['domains'].join(' '),
-                "SITE_NAME"   => sitename
+                "SITE_NAME"   => sitename,
+                "APACHE2_FORCE_HTTPS" => httpconfigs.key?('force_https') ? ( httpconfigs['force_https'] ? "yes" : "no" ) : "no"
             }
         end
     end
