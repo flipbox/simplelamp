@@ -44,6 +44,9 @@ Once the config.yml file is edited, you can run:
 
 ####Example config.yml
 ```yaml
+name: example
+local_path: /Users/dsmrt/Sites/project-root
+remote_path: /var/www/html/
 sites: 
     web:
         docroot: /path/to/web-entrypoint
