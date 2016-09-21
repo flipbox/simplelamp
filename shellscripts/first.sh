@@ -11,7 +11,8 @@ echo "${TEXT_NORM}"
 sudo add-apt-repository ppa:ondrej/php
 sudo apt-get update
 #TODO - Make php version configurable
-sudo apt-get install -y php7.0-dev libapache2-mod-php7.0 php7.0-mcrypt php7.0-bcmath php7.0-gd php7.0-gmp php7.0-intl php7.0-mbstring php7.0-mcrypt php7.0-mysql php7.0-soap php7.0-xml php7.0-zip php7.0-xsl php7.0-xmlrpc php-pear
+sudo apt-get install -y php7.0-dev libapache2-mod-php7.0 php7.0-curl php7.0-cli php7.0-mcrypt php7.0-bcmath php7.0-gd php7.0-gmp php7.0-intl php7.0-mbstring php7.0-mysql php7.0-soap php7.0-xml php7.0-zip php7.0-xsl php7.0-xmlrpc php-pear
+
 
 #install apache
 sudo apt-get install -y apache2 
