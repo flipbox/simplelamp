@@ -34,6 +34,7 @@ Once the config.yml file is edited, you can run:
 
 ###Properties
 - *name* (required) - string - Change this to fit the name of the project you are working on.
+- *overwrite* (optional) - string - Path to a config.yml that will overwrite it completely. This is nice if you want to use this repo as a git submodule.
 - *local_path* (required) - string - the local path to the project root. The project root will have anything that might be needed to be accessed from the server. This is not the document root for apache.
 - *remote_path* (required) - string - the remote path to the project on the vagrant box.
 - *sites* (required) - array - the apache config variables for the infinite amount of virtual hosts you want to run on the vagrant box.
