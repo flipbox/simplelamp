@@ -13,7 +13,7 @@ userconfigs = YAML::load_file(File.join(__dir__, 'config.yml'))
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # There is really no need to edit anything in this file
 # Please use the config.yml to configure the vagrant box
-# Request features here: https://github.com/FlipboxFactory/toolshed
+# Request features here: https://github.com/FlipboxFactory/simplelamp
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -79,10 +79,14 @@ end
 #You developing a bunch of plugins?
 # This is great for testing plugins all at once!
 # If your project path matchs this you shouldn't have to change this.
-REMOTE_PLUGINS_DIRECTORY = "${REMOTE_PROJECT_PATH}craft/plugins"
+REMOTE_PLUGINS_DIRECTORY = [REMOTE_PROJECT_PATH, "craft/plugins"].join('/')
 
 # ** OPTIONAL ** if this is left `nil`, this directory will not be mounted 
-LOCAL_PLUGINS_DIRECTORY = nil #/users/home/site/plugins
+if userconfigs.key?('craft_plugins') and userconfigs['craft_plugins'].key?('local_path')
+    LOCAL_PLUGINS_DIRECTORY = userconfigs['craft_plugins']['local_path']
+else
+    LOCAL_PLUGINS_DIRECTORY = nil
+end
 
 #database properties
 DATABASE_LOCATION = nil # if you want to make the provisioning load a db dump... uncomment this -> #REMOTE_PROJECT_PATH + "_db/craft.sql"
