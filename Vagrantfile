@@ -12,12 +12,9 @@ userconfigs = YAML::load_file(File.join(__dir__, 'config.yml'))
 
 #CHECK FOR OVERWRITE
 if userconfigs.key?('overwrite')
-    print userconfigs
-    print "\n"
     userconfigs = YAML::load_file(File.join(__dir__, userconfigs['overwrite']))
     print userconfigs
 end
-die
 
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # There is really no need to edit anything in this file

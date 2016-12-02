@@ -1,7 +1,7 @@
 # vi:syntax=yaml ft=yaml
 # Project name
 name: default
-overwrite: ../.simplelamp.yml
+# overwrite: ../.simplelamp.yml
 # Project paths
 # path on you computer, we like to commit the Vagrantfile and dependencies to the project repo.
 local_path: ../
