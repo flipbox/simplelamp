@@ -15,7 +15,7 @@ if userconfigs.key?('overwrite')
     configfile = File.join(__dir__, userconfigs['overwrite'])
 
     if File.file?(configfile)
-        userconfigs = YAML::load_file()
+        userconfigs = YAML::load_file(configfile)
     end
 end
 
