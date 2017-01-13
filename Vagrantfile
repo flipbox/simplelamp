@@ -84,7 +84,7 @@ end
 if userconfigs.key?('install') and userconfigs['install'].key?('elasticsearch') and userconfigs['install']['elasticsearch']
     INSTALL_ELASTICSEARCH = true
 else
-    INSTALL_ELASTICSEARCH = nil #REMOTE_PROJECT_PATH + "httpd.conf"
+    INSTALL_ELASTICSEARCH = false #REMOTE_PROJECT_PATH + "httpd.conf"
 end
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

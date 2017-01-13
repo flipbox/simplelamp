@@ -9,9 +9,10 @@ echo "${TEXT_NORM}"
 
 #should be php 70
 sudo add-apt-repository ppa:ondrej/php
-sudo apt-get update
+sudo apt-get update -y
 #TODO - Make php version configurable
-sudo apt-get install -y php7.0-dev libapache2-mod-php7.0 php7.0-curl php7.0-cli php7.0-mcrypt php7.0-bcmath php7.0-gd php7.0-gmp php7.0-intl php7.0-mbstring php7.0-mysql php7.0-soap php7.0-xml php7.0-zip php7.0-xsl php7.0-xmlrpc php-pear
+sudo apt-get install -y php5.6-dev php5.6-cli php5.6-common php5.6-cgi php5.6-intl php5.6-mbstring php5.6-gd php5.6-curl php5.6-mysqlnd php5.6-mcrypt php5.6-imagick libapache2-mod-php5.6 php-pear
+# sudo php5enmod mcrypt
 
 
 #install apache
@@ -25,11 +26,12 @@ sudo openssl req -subj '/CN=flipboxdigital.com/O=Flipbox Digital/C=US' -new -new
 
 #TODO - Make php xdebug configurable
 # Xdebug
-sudo apt-get update
-sudo pecl install pecl_http
-sudo pecl install Xdebug
+# sudo apt-get update -y
+# sudo pecl install pecl_http
+# sudo pecl install Xdebug
 sudo echo "[xdebug]
 zend_extension=xdebug.so
+xdebug.idekey = \"PHPSTORM\"
 xdebug.default_enable = 1
 xdebug.remote_enable = 1
 xdebug.profiler_enable = 0
@@ -38,12 +40,15 @@ xdebug.show_mem_delta = 1
 xdebug.trace_format = 2
 xdebug.auto_trace = 0
 xdebug.var_display_max_depth = 6
+xdebug.var_display_max_children = 256
+xdebug.var_display_max_data = 1024
 xdebug.profiler_enable_trigger = 1
 xdebug.trace_enable_trigger = 1
 xdebug.max_nesting_level = 500
 xdebug.trace_output_dir = \"/var/www/html/_logs/xdebug\"
 xdebug.profiler_output_dir = \"/var/www/html/_logs/xdebug\"
-" > /etc/php/7.0/apache2/conf.d/xdebug.ini
+" > /etc/php/5.6/cgi/xdebug.ini
+
 
 ###########################################################################
 # MYSQL

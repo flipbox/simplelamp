@@ -18,6 +18,8 @@ sites:
             - local.example.com
         #boolean
         force_https: true
+install:
+    elasticsearch: false
 # Couple things not tested, use at your own risk.
 #httpconf:
 # craft_plugins:
