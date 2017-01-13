@@ -81,6 +81,11 @@ if userconfigs.key?('httpconf')
 else
     APACHE2_CONF_PATH = nil #REMOTE_PROJECT_PATH + "httpd.conf"
 end
+if userconfigs.key?('install') and userconfigs['install'].key?('elasticsearch') and userconfigs['install']['elasticsearch']
+    INSTALL_ELASTICSEARCH = true
+else
+    INSTALL_ELASTICSEARCH = nil #REMOTE_PROJECT_PATH + "httpd.conf"
+end
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # PLUGINS DIRECTORY (REMOTE AND LOCAL, this is not tested)
@@ -180,6 +185,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             }
         end
     end
+
+    if INSTALL_ELASTICSEARCH
+        config.vm.provision "shell" do |s|
+            s.name = "ELASTICSEARCH"
+            s.path = "shellscripts/elasticsearch.sh"
+        end
+    end
+
 
     # TODO - make hostmanager optional and check if it's installed
     config.vm.provision :hostmanager, run: "always" do |s|

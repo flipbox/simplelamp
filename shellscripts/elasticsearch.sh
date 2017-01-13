@@ -6,4 +6,4 @@ sudo apt-get update && sudo apt-get install -y openjdk-7-jdk elasticsearch
 
 sudo echo "network.bind_host: 0" | sudo tee -a /etc/elasticsearch/elasticsearch.yml
 sudo service elasticsearch restart
-sudo systemctl enable elasticsearch.service
+sudo update-rc.d elasticsearch defaults
