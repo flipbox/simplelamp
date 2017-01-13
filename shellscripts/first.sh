@@ -11,7 +11,7 @@ echo "${TEXT_NORM}"
 sudo add-apt-repository ppa:ondrej/php
 sudo apt-get update -y
 #TODO - Make php version configurable
-sudo apt-get install -y php5.6-dev php5.6-cli php5.6-common php5.6-cgi php5.6-intl php5.6-mbstring php5.6-gd php5.6-curl php5.6-mysqlnd php5.6-mcrypt php5.6-imagick libapache2-mod-php5.6 php-pear
+sudo apt-get install -y php5.6-dev php5.6-cli php5.6-common php5.6-cgi php5.6-intl php5.6-mbstring php5.6-gd php5.6-soap php5.6-curl php5.6-mysqlnd php5.6-mcrypt php5.6-imagick libapache2-mod-php5.6 php-pear
 # sudo php5enmod mcrypt
 
 
