@@ -8,11 +8,11 @@ echo "Installing php, apache2, etc ----------------------------------------"
 echo "${TEXT_NORM}"
 
 #should be php 70
-sudo add-apt-repository ppa:ondrej/php
-sudo apt-get update -y
+# sudo add-apt-repository ppa:ondrej/php
+# sudo apt-get update -y
 #TODO - Make php version configurable
-sudo apt-get install -y php5.6-dev php5.6-cli php5.6-common php5.6-cgi php5.6-intl php5.6-xml php5.6-xmlrpc php5.6-mbstring php5.6-gd php5.6-soap php5.6-curl php5.6-mysqlnd php5.6-mcrypt php5.6-imagick libapache2-mod-php5.6 php-pear
-# sudo php5enmod mcrypt
+sudo apt-get install -y php5-dev php5-cli php5-common php5-cgi php5-intl php5-xmlrpc php5-gd php-soap php5-curl php5-mysqlnd php5-mcrypt php5-imagick libapache2-mod-php5 php-pear php5-xdebug
+sudo php5enmod mcrypt
 
 
 #install apache
@@ -31,7 +31,7 @@ sudo openssl req -subj '/CN=flipboxdigital.com/O=Flipbox Digital/C=US' -new -new
 # sudo pecl install Xdebug
 sudo echo "[xdebug]
 zend_extension=xdebug.so
-xdebug.idekey = \"PHPSTORM\"
+xdebug.idekey = "PHPSTORM"
 xdebug.default_enable = 1
 xdebug.remote_enable = 1
 xdebug.profiler_enable = 0
@@ -45,11 +45,15 @@ xdebug.var_display_max_data = 1024
 xdebug.profiler_enable_trigger = 1
 xdebug.trace_enable_trigger = 1
 xdebug.max_nesting_level = 500
-xdebug.trace_output_dir = \"/var/www/html/_logs/xdebug\"
-xdebug.profiler_output_dir = \"/var/www/html/_logs/xdebug\"
-" > /etc/php/5.6/cgi/xdebug.ini
+xdebug.trace_output_dir = "/var/www/html/_logs/xdebug"
+xdebug.profiler_output_dir = "/var/www/html/_logs/xdebug"
 
-
+memory_limit=256M
+upload_max_filesize=100M
+max_input_time=300
+post_max_size=110M
+max_input_vars=5000
+max_execution_time=90">/etc/php5/apache2/conf.d/00-site.ini
 ###########################################################################
 # MYSQL
 ###########################################################################
