@@ -9,7 +9,7 @@ echo "${TEXT_NORM}"
 
 #should be php 70
 # sudo add-apt-repository ppa:ondrej/php
-# sudo apt-get update -y
+sudo apt-get update -y
 #TODO - Make php version configurable
 sudo apt-get install -y php5-dev php5-cli php5-common php5-cgi php5-intl php5-xmlrpc php5-gd php-soap php5-curl php5-mysqlnd php5-mcrypt php5-imagick libapache2-mod-php5 php-pear php5-xdebug
 sudo php5enmod mcrypt
