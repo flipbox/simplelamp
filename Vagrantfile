@@ -20,7 +20,7 @@ if userconfigs.key?('overwrite')
 end
 
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# There is really no need to edit anything in this file
+# There is no need to edit anything in this file
 # Please use the config.yml to configure the vagrant box
 # Request features here: https://github.com/FlipboxFactory/simplelamp
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -33,6 +33,13 @@ if userconfigs.key?('name')
     PROJECT_NAME = userconfigs['name']
 else
     raise '`name` in config.yml file is required.'
+end
+
+
+if userconfigs.key?('phpVersion')
+    PHP_VERSION = userconfigs['phpVersion']
+else
+    raise '`phpVersion` in config.yml file is required.'
 end
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -74,17 +81,39 @@ end
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # OPTION #2: REMOTE PATH FOR APACHE CONF (this is not tested)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 #vm path to the apache conf you want to use 
 # ** OPTIONAL ** if this is left `nil`, this default will be used (found in shellscripts/always.sh)
 if userconfigs.key?('httpconf')
     APACHE2_CONF_PATH = userconfigs['httpconf']
 else
-    APACHE2_CONF_PATH = nil #REMOTE_PROJECT_PATH + "httpd.conf"
+    APACHE2_CONF_PATH = nil
 end
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# OPTION #3: DB INSTALLS
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# INSTALL
 if userconfigs.key?('install') and userconfigs['install'].key?('elasticsearch') and userconfigs['install']['elasticsearch']
-    INSTALL_ELASTICSEARCH = true
+    INSTALL_ELASTICSEARCH = userconfigs['install']['elasticsearch']
 else
-    INSTALL_ELASTICSEARCH = nil #REMOTE_PROJECT_PATH + "httpd.conf"
+    INSTALL_ELASTICSEARCH = nil
+end
+
+# MYSQL INSTALLS BY DEFAULT
+# MYSQL IS INSTALLED BY DEFAULT, SET TO FALSE IF THIS IS NOT WANTED
+if userconfigs.key?('install') and userconfigs['install'].key?('mysql')
+    INSTALL_MYSQL = userconfigs['install']['mysql']
+else
+    INSTALL_MYSQL = true
+end
+
+# POSTGRESQL INSTALL
+if userconfigs.key?('install') and userconfigs['install'].key?('postgresql')
+    INSTALL_POSTGRESQL = userconfigs['install']['postgresql']
+else
+    INSTALL_POSTGRESQL = nil
 end
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -106,7 +135,6 @@ end
 DATABASE_LOCATION = nil # if you want to make the provisioning load a db dump... uncomment this -> #REMOTE_PROJECT_PATH + "_db/craft.sql"
 
 # TODO - add these as options to the configs
-DATABASE_TABLE = "craft"
 DB_NAME        = "craft"
 DB_USER        = "vagrant"
 DB_PASS        = "vagrant"
@@ -154,17 +182,41 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     config.vm.provision "shell" do |s|
-        s.name = "FIRST" 
-        s.path = "shellscripts/first.sh"
+        s.name = "PHP" 
+        s.path = "shellscripts/php-apache2.sh"
         s.env = {
-            "DB_NAME"      => DB_NAME,
-            "DB_USER"      => DB_USER,
-            "DB_PASS"      => DB_PASS,
-            "DATABASE_LOCATION" => DATABASE_LOCATION
+            "PHP_VERSION" => PHP_VERSION
         }
     end
+
+    if INSTALL_POSTGRESQL
+        config.vm.provision "shell" do |s|
+            s.name = "POSTGRESQL" 
+            s.path = "shellscripts/postgresql.sh"
+            s.env = {
+                "DB_NAME"      => DB_NAME,
+                "DB_USER"      => DB_USER,
+                "DB_PASS"      => DB_PASS,
+                "DATABASE_LOCATION" => DATABASE_LOCATION
+            }
+        end
+    end
+
+    if INSTALL_MYSQL
+        config.vm.provision "shell" do |s|
+            s.name = "MYSQL" 
+            s.path = "shellscripts/mysql.sh"
+            s.env = {
+                "DB_NAME"      => DB_NAME,
+                "DB_USER"      => DB_USER,
+                "DB_PASS"      => DB_PASS,
+                "DATABASE_LOCATION" => DATABASE_LOCATION
+            }
+        end
+    end
+    
     userconfigs['sites'].each do |sitename, httpconfigs|
-        print "Running ByPathAndHosts-"+sitename+" for " + httpconfigs['docroot'] + "\n"
+        # print "Running ByPathAndHosts-"+sitename+" for " + httpconfigs['docroot'] + "\n"
         config.vm.provision "shell", run: "always" do |s|
             s.name = "ByPathAndHosts-"+sitename
             s.path = "shellscripts/always.sh"
