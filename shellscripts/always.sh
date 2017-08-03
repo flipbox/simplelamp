@@ -29,7 +29,7 @@ else
 
     RewriteRule ^/?(.*) https://%{SERVER_NAME}/\$1 [R,L]
 
-    LogLevel alert rewrite:trace6
+    LogLevel info rewrite:trace6
 
 </VirtualHost>
 <VirtualHost *:443>
@@ -41,7 +41,7 @@ else
 
     RewriteEngine On
 
-    LogLevel alert rewrite:trace6
+    LogLevel info rewrite:trace6
 
     SSLEngine on
     SSLCertificateFile    /etc/apache2/ssl/server.crt
@@ -68,7 +68,7 @@ else
 
     RewriteEngine On
 
-    LogLevel alert rewrite:trace6
+    LogLevel info rewrite:trace6
 
 </VirtualHost>
 <VirtualHost *:443>
@@ -80,7 +80,7 @@ else
 
     RewriteEngine On
 
-    LogLevel alert rewrite:trace6
+    LogLevel info rewrite:trace6
 
     SSLEngine on
     SSLCertificateFile    /etc/apache2/ssl/server.crt
