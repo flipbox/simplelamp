@@ -17,9 +17,12 @@ sudo update-rc.d apache2 defaults
 # Create the database
 mysql -u root -p$DB_PASS -e "CREATE DATABASE ${DB_NAME} CHARACTER SET utf8 COLLATE utf8_general_ci;"
 
+#allow for remote access
+sudo sed -i "s/.*bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
+
 # Create the user
-mysql -u root -p$DB_PASS -e "CREATE USER '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASS}';"
-mysql -u root -p$DB_PASS -e "GRANT ALL PRIVILEGES ON ${DB_NAME} . * TO '${DB_USER}'@'localhost';"
+mysql -u root -p$DB_PASS -e "CREATE USER '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASS}';"
+mysql -u root -p$DB_PASS -e "GRANT ALL PRIVILEGES ON * . * TO '${DB_USER}'@'%';"
 
 if [ ! -z "$DATABASE_LOCATION" ] && [ -e "$DATABASE_LOCATION" ]
 then
@@ -27,6 +30,8 @@ then
     echo "Loading DB at ${DATABASE_LOCATION}";
     mysql -u root -p$DB_PASS $DB_NAME < $DATABASE_LOCATION && echo "DB at ${DATABASE_LOCATION} loaded successfully.";
 fi
+
+sudo service mysql restart
 
 ###########################################################################
 # FINISH
