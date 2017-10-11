@@ -44,37 +44,48 @@ Once the config.yml file is edited, you can run:
         - *domains* (required) - array - Value for the apache virtual host ServerAlias. Currently we don't set the ServerName for the apache virtual host which is fine when we have the aliases that are correct.
         - *force_https* (optional) - boolean value - Added a redirect from http to https when true.
 - *install* 
-	- *elasticsearch* - bool - install server or not
-	- *msyql* - bool - install server or not
-	- *postgresql* - bool - install server or not
+    - *elasticsearch* - bool - install server or not
+    - *elasticsearchVersion* - enum - install a specified version of elasticsearch. Options are 1.7, 2, or 5. Defaults to 5.
+    - *msyql* - bool - install server or not
+    - *postgresql* - bool - install server or not
 
 #### Example config.yml
 ```yaml
 # vi:syntax=yaml ft=yaml
-# Project name
-name: example
+name: default
 overwrite: ../.simplelamp.yml
+
 # Project paths
 # path on you computer, we like to commit the Vagrantfile and dependencies to the project repo.
 local_path: ../
+
 # path on the vagrant box
 remote_path: /var/www/html
-# options: 7.1 7.0 5.6 5.5
+
+# options: "7.1", "7.0", "5.6", or "5.5"
+# defaults to 7.1
 phpVersion: 7.1
+
 # Sites
 sites:
     # site label, you can have unlimited sets of sites childern
     example:
         # this can also have a local path for the http conf
-        docroot: /var/www/html/public
+        docroot: /var/www/html/web
         domains:
-            - example.dev
-	    - local.example.com
+            - katgifs.localhost
+            - local.katgifs.com
         #boolean
         force_https: true
 
 install:
     elasticsearch: false
+
+    # options: "1.7", "2", or "5"
+    # defaults to 5
+    elasticsearchVersion: 1.7
+
+    #mysql is installed by default
     mysql: true
     postgresql: false
 

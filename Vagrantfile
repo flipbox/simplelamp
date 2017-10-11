@@ -101,6 +101,13 @@ else
     INSTALL_ELASTICSEARCH = nil
 end
 
+
+if userconfigs.key?('install') and userconfigs['install'].key?('elasticsearchVersion') and userconfigs['install']['elasticsearchVersion']
+    ES_VERSION = userconfigs['install']['elasticsearchVersion']
+else
+    ES_VERSION = nil
+end
+
 # MYSQL INSTALLS BY DEFAULT
 # MYSQL IS INSTALLED BY DEFAULT, SET TO FALSE IF THIS IS NOT WANTED
 if userconfigs.key?('install') and userconfigs['install'].key?('mysql')
@@ -242,6 +249,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         config.vm.provision "shell" do |s|
             s.name = "ELASTICSEARCH"
             s.path = "shellscripts/elasticsearch.sh"
+            s.env = {
+                "ES_VERSION" => ES_VERSION
+            }
         end
     end
 

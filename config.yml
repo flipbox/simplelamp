@@ -1,32 +1,48 @@
 # vi:syntax=yaml ft=yaml
+#
+# *Instructions*
+#
+# You can copy this file (config.yml) and place it in the directory above this one (cd ..), 
+# then name it ".simplelamp.yml" to overwrite settings.
 # Project name
+
+# Name this vagrant box on your system. Make this unique so it doesn't conflict with
+# another on your computer.
 name: default
+
+# Change the name of the overwrite file. 
 overwrite: ../.simplelamp.yml
+
 # Project paths
 # path on you computer, we like to commit the Vagrantfile and dependencies to the project repo.
 local_path: ../
+
 # path on the vagrant box
 remote_path: /var/www/html
-# options: 7.1 7.0 5.6 5.5
-phpVersion: 7.0
+
+# options: "7.1", "7.0", "5.6", or "5.5"
+# defaults to 7.1
+phpVersion: 7.1
+
 # Sites
 sites:
     # site label, you can have unlimited sets of sites childern
     example:
         # this can also have a local path for the http conf
-        docroot: /var/www/html/public
+        docroot: /var/www/html/web
         domains:
-            - example.dev
+            - example.localhost
             - local.example.com
         #boolean
         force_https: true
 
 install:
     elasticsearch: false
+
+    # options: "1.7", "2", or "5"
+    # defaults to 5
+    elasticsearchVersion: 1.7
+
+    #mysql is installed by default
     mysql: true
     postgresql: false
-# Couple things not tested, use at your own risk.
-#httpconf:
-# craft_plugins:
-#     local_path:
-#     remote_path:
