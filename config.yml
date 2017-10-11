@@ -8,7 +8,7 @@
 
 # Name this vagrant box on your system. Make this unique so it doesn't conflict with
 # another on your computer.
-name: default
+name: test
 
 # Change the name of the overwrite file. 
 overwrite: ../.simplelamp.yml
@@ -41,7 +41,7 @@ install:
 
     # options: "1.7", "2", or "5"
     # defaults to 5
-    elasticsearchVersion: 1.7
+    elasticsearchVersion: 5
 
     #mysql is installed by default
     mysql: true
